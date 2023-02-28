@@ -16,9 +16,6 @@
     async init() {
       this.cacheDom();
       this.bindEvents();
-      await this.getLocation();
-      await this.getWeatherData();
-      this.render();
     },
     cacheDom() {
       this.searchBtn = document.getElementById("searchIcon");
@@ -43,14 +40,6 @@
     },
     async getWeatherData() {
       try {
-        if (this.uInput === "") {
-          const response1 = await fetch(
-            `http://api.openweathermap.org/geo/1.0/reverse?lat=${this.uLat}&lon=${this.uLong}&appid=f70b1477a53fdaa02a713d62054b16bf`,
-            { mode: "cors" }
-          );
-          const response2 = await response1.json();
-          this.uInput = response2[0].state;
-        }
         const data = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${this.uInput}&APPID=f70b1477a53fdaa02a713d62054b16bf`,
           { mode: "cors" }
@@ -84,6 +73,7 @@
           this.weath = dataJSON.weather[0].main;
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.log(err);
       }
     },
@@ -110,20 +100,6 @@
         this.degree.innerText = "°C";
         this.degreeBtn.innerText = "°F";
       }
-    },
-    getLocationPromise() {
-      return new Promise((resolve, reject) => {
-        // Promisifying the geolocation API
-        navigator.geolocation.getCurrentPosition(
-          (position) => resolve(position),
-          (error) => reject(error)
-        );
-      });
-    },
-    async getLocation() {
-      const data = await this.getLocationPromise();
-      this.uLat = data.coords.latitude;
-      this.uLong = data.coords.longitude;
     },
     showError() {
       this.errorDiv.style.transform = "translate(10px)";
