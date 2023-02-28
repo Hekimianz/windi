@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WINDi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <script src="./app.js" defer></script>
   </head>
@@ -19,7 +25,19 @@
       />
       <img id="searchIcon" src="./assets/searchIcon.svg" alt="searchIcon" />
     </nav>
-    <div id="wrapper"></div>
+    <div id="wrapper">
+      <div id="cityCard">
+        <h1 id="cityName">Querétaro</h1>
+        <p id="cityTime">11:30 PM</p>
+        <img id="cityImg" src="./assets/cloudy-night.svg" />
+        <div id="tempDiv">
+          <p id="cityTemp">17</p>
+          <span id="degree">°C</span>
+          <div><span id="degreeBtn">°F</span></div>
+        </div>
+        <p id="cityWeath">Scattered Clouds</p>
+      </div>
+    </div>
     <footer>
       <span id="footerSpan">
         Made by

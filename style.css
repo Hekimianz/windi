@@ -129,8 +129,14 @@ table {
 
 html,
 body {
-  width: 100%;
   height: 100%;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  background-image: url(./assets/bg.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left;
+  overflow: hidden;
 }
 
 body {
@@ -140,10 +146,12 @@ body {
 
 nav {
   height: 64px;
+  width: 100%;
   border-bottom: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 #logo {
@@ -151,7 +159,7 @@ nav {
 }
 
 #searchIcon {
-  height: 2.5em;
+  height: 3em;
   cursor: pointer;
   transition: 1s all;
 }
@@ -178,19 +186,74 @@ nav {
 }
 
 #wrapper {
-  flex: 2;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+#cityCard {
+  width: 70%;
+  max-width: 400px;
+  max-height: 800px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
+  font-size: 1.5em;
+}
+
+#cityName {
+  font-weight: bold;
+}
+
+#cityTime {
+  font-weight: 100;
+}
+
+#cityImg {
+  height: 150px;
+  margin: 20px 0;
+}
+
+#cityWeath {
+  font-weight: 100;
+}
+
+#tempDiv {
+  display: flex;
+}
+
+#degreeBtn {
+  font-weight: 100;
+  font-size: 0.6em;
+  cursor: pointer;
+  position: absolute;
+  transition: 0.3s font-size;
+}
+
+#degreeBtn:hover {
+  font-weight: 400;
+  font-size: 0.7em;
 }
 
 footer {
   height: 32px;
-  border-top: 1px solid black;
+  color: white;
+
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #footerSpan > a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 a > img {
@@ -200,4 +263,27 @@ a > img {
 
 a:hover > img {
   transform: rotate(360deg);
+}
+
+@media screen and (min-height: 720px) {
+  #cityImg {
+    height: 170px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #logo {
+    height: 7em;
+  }
+
+  #searchIcon {
+    margin-right: 30px;
+  }
+
+  #cityImg {
+    height: 250px;
+  }
+  #cityCard {
+    font-size: 2.5em;
+  }
 }
