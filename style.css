@@ -135,7 +135,7 @@ body {
   background-image: url(./assets/bg.svg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: center;
   overflow: hidden;
 }
 
@@ -211,6 +211,7 @@ nav {
 
 #cityName {
   font-weight: bold;
+  text-align: center;
 }
 
 #cityTime {
@@ -241,6 +242,26 @@ nav {
 #degreeBtn:hover {
   font-weight: 400;
   font-size: 0.7em;
+}
+
+#errorDiv {
+  position: absolute;
+  background-color: rgb(216, 112, 112);
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-233px);
+  transition: 0.5s all;
+  margin-top: 74px;
+}
+
+#errorIcon {
+  height: 2rem;
+  border-right: 1px double black;
+  margin-right: 10px;
+  padding-right: 10px;
 }
 
 footer {
@@ -284,6 +305,6 @@ a:hover > img {
     height: 250px;
   }
   #cityCard {
-    font-size: 2.5em;
+    font-size: 2.4em;
   }
 }

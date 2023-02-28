@@ -15,6 +15,10 @@
     <script src="./app.js" defer></script>
   </head>
   <body>
+    <div id="errorDiv">
+      <img id="errorIcon" src="./assets/errorIcon.svg" />
+      <p id="errorP">Oops! City not found!</p>
+    </div>
     <nav>
       <img id="logo" src="./assets/logo.png" alt="logo" />
       <input
@@ -27,15 +31,15 @@
     </nav>
     <div id="wrapper">
       <div id="cityCard">
-        <h1 id="cityName">Querétaro</h1>
-        <p id="cityTime">11:30 PM</p>
-        <img id="cityImg" src="./assets/weathIcons/cloudy-night.svg" />
+        <h1 id="cityName">-----</h1>
+        <p id="cityTime">--:--</p>
+        <img id="cityImg" src="./assets/weathIcons/cloud.svg" />
         <div id="tempDiv">
-          <p id="cityTemp">17</p>
+          <p id="cityTemp">--</p>
           <span id="degree" class="C">°C</span>
           <div><span id="degreeBtn">°F</span></div>
         </div>
-        <p id="cityWeath">Scattered Clouds</p>
+        <p id="cityWeath"></p>
       </div>
     </div>
     <footer>

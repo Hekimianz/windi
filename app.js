@@ -12,6 +12,7 @@
     uLong: "",
     uLat: "",
     regionNames: new Intl.DisplayNames(["en"], { type: "region" }),
+    error: "",
     async init() {
       this.cacheDom();
       this.bindEvents();
@@ -29,6 +30,7 @@
       this.cityWeath = document.getElementById("cityWeath");
       this.degree = document.getElementById("degree");
       this.degreeBtn = document.getElementById("degreeBtn");
+      this.errorDiv = document.getElementById("errorDiv");
     },
     bindEvents() {
       document.addEventListener("keydown", (e) =>
@@ -53,31 +55,36 @@
           `https://api.openweathermap.org/data/2.5/weather?q=${this.uInput}&APPID=f70b1477a53fdaa02a713d62054b16bf`,
           { mode: "cors" }
         );
-
         const dataJSON = await data.json();
-        this.name = `${dataJSON.name}, ${this.regionNames.of(
-          dataJSON.sys.country
-        )}`;
-        const d = new Date();
-        const localTime = d.getTime();
-        const localOffset = d.getTimezoneOffset() * 60000;
-        const utc = localTime + localOffset;
-        const tz = utc + 1000 * dataJSON.timezone;
-        const nd = new Date(tz);
-        this.time = nd.toLocaleString(undefined, {
-          day: "2-digit",
-          weekday: "short",
-          month: "short",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
-        this.tempK = Math.floor(dataJSON.main.temp);
-        this.tempC = Math.floor(this.tempK - 273.15);
-        this.tempF = Math.floor(this.tempC * 1.8 + 32);
-        this.weath = dataJSON.weather[0].main;
+        if (dataJSON.cod === "404") {
+          this.showError();
+          this.error = "404";
+          setTimeout(this.hideError, 3000);
+        } else {
+          this.error = "";
+          this.name = `${dataJSON.name}, ${this.regionNames.of(
+            dataJSON.sys.country
+          )}`;
+          const d = new Date();
+          const localTime = d.getTime();
+          const localOffset = d.getTimezoneOffset() * 60000;
+          const utc = localTime + localOffset;
+          const tz = utc + 1000 * dataJSON.timezone;
+          const nd = new Date(tz);
+          this.time = nd.toLocaleString(undefined, {
+            day: "2-digit",
+            weekday: "short",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          this.tempK = Math.floor(dataJSON.main.temp);
+          this.tempC = Math.floor(this.tempK - 273.15);
+          this.tempF = Math.floor(this.tempC * 1.8 + 32);
+          this.weath = dataJSON.weather[0].main;
+        }
       } catch (err) {
-        // eslint-disable-next-line no-alert
-        alert(err);
+        console.log(err);
       }
     },
     hideShowInput() {
@@ -118,6 +125,12 @@
       this.uLat = data.coords.latitude;
       this.uLong = data.coords.longitude;
     },
+    showError() {
+      this.errorDiv.style.transform = "translate(10px)";
+    },
+    hideError() {
+      this.errorDiv.style.transform = "translate(-233px)";
+    },
     async searchAndRender() {
       if (
         this.searchInput.className !== "searched" &&
@@ -126,7 +139,9 @@
         this.captureUserInput();
         this.hideShowInput();
         await this.getWeatherData();
-        this.render();
+        if (this.error === "") {
+          this.render();
+        }
       } else this.hideShowInput();
     },
     render() {
@@ -134,6 +149,31 @@
       this.cityTime.innerText = this.time;
       this.cityTemp.innerText = this.tempC;
       this.cityWeath.innerText = this.weath;
+      switch (this.weath) {
+        case "Clouds":
+          this.cityImg.src = "assets/weathIcons/cloud.svg";
+          break;
+        case "Clear":
+          this.cityImg.src = "assets/weathIcons/clear.svg";
+          break;
+        case "Tornado":
+          this.cityImg.src = "assets/weathIcons/tornado.svg";
+          break;
+        case "Snow":
+          this.cityImg.src = "assets/weathIcons/snow.svg";
+          break;
+        case "Rain":
+          this.cityImg.src = "assets/weathIcons/rain.svg";
+          break;
+        case "Thunderstorm":
+          this.cityImg.src = "assets/weathIcons/thunder.svg";
+          break;
+        case "Mist":
+          this.cityImg.src = "assets/weathIcons/mist.svg";
+          break;
+        default:
+          console.log("hello");
+      }
     },
   };
   page.init();
